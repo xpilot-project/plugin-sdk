@@ -30,6 +30,12 @@ public interface IBroker
     public event EventHandler<PrivateMessageReceivedEventArgs>? PrivateMessageReceived;
 
     /// <summary>
+    /// Raised when the network server itself sends a text message. These are not private messages from another
+    /// user, so they are not delivered through <see cref="PrivateMessageReceived"/>.
+    /// </summary>
+    public event EventHandler<ServerMessageReceivedEventArgs>? ServerMessageReceived;
+
+    /// <summary>
     /// Raised when a text radio message arrives.
     /// </summary>
     public event EventHandler<RadioMessageReceivedEventArgs>? RadioMessageReceived;
