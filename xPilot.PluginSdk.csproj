@@ -5,6 +5,7 @@
     <AssemblyName>xPilot.PluginSdk</AssemblyName>
     <RootNamespace>Vatsim.Xpilot.PluginSdk</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 </Project>

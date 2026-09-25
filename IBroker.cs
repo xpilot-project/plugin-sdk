@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Vatsim.Xpilot.PluginSdk.Events;
 using Vatsim.Xpilot.PluginSdk.Exceptions;
+using Vatsim.Xpilot.PluginSdk.Models;
 
 namespace Vatsim.Xpilot.PluginSdk;
 
@@ -9,6 +11,24 @@ namespace Vatsim.Xpilot.PluginSdk;
 /// </summary>
 public interface IBroker
 {
+    /// <summary>
+    /// Gets the version of the SDK assembly the host was built with. Compare against the
+    /// version your plugin was built against to detect an incompatible host in <see cref="IPlugin.Initialize"/>.
+    /// </summary>
+    public Version ApiVersion { get; }
+
+    /// <summary>
+    /// Gets a value indicating whether xPilot is currently connected to the network.
+    /// Use this at initialization to learn the current state, since <see cref="NetworkConnected"/>
+    /// is only raised on transitions.
+    /// </summary>
+    public bool IsConnected { get; }
+
+    /// <summary>
+    /// Gets the callsign of the current connection, or <see langword="null"/> when not connected.
+    /// </summary>
+    public string? Callsign { get; }
+
     /// <summary>
     /// Raised when the xPilot window is about to close.
     /// </summary>
@@ -104,6 +124,17 @@ public interface IBroker
     /// Raised when an aircraft is deleted from the simulator session.
     /// </summary>
     public event EventHandler<AircraftDeletedEventArgs>? AircraftDeleted;
+
+    /// <summary>
+    /// Gets a snapshot of the controllers xPilot is currently tracking. Safe to call from any thread.
+    /// </summary>
+    /// <remarks>
+    /// Tracking starts when xPilot starts and is reset on disconnect, so the snapshot matches the controller
+    /// set xPilot has seen for the current connection no matter when the plugin loads or calls this.
+    /// A controller is included from its first position update until its delete message.
+    /// </remarks>
+    /// <returns>A copy of the current controller set; empty when disconnected.</returns>
+    public IReadOnlyList<ControllerInfo> GetControllers();
 
     /// <summary>
     /// Request connection to the network as a pilot.
