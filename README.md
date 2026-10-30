@@ -77,10 +77,11 @@ Build the plugin, then copy its folder into the xPilot `Plugins` folder, laid ou
 
 ### Actions
 
-`RequestConnect`, `RequestConnectAsObserver`, `RequestConnectAsTowerView`, `RequestDisconnect`, `RequestMetar`, `RequestAtis`, `SendPrivateMessage`, `SendRadioMessage`, `PostDebugMessage`, `SetModeC`, `SquawkIdent`, and `SetPtt`. Some throw state exceptions such as `NotConnectedException`, `AlreadyConnectedException`, or `SimNotReadyException`. Handle them, because client state can change at any time.
+`RequestConnect`, `RequestConnectAsObserver`, `RequestConnectAsTowerView`, `RequestDisconnect`, `RequestMetar`, `RequestAtis`, `PostDebugMessage`, `SetModeC`, `SquawkIdent`, and `SetPtt`. Some throw state exceptions such as `NotConnectedException`, `AlreadyConnectedException`, or `SimNotReadyException`. Handle them, because client state can change at any time.
 
 ## Things to know
 
+* **Messages are read-only:** plugins can receive radio, private, and broadcast messages (and see the ones the user sent), but cannot send radio or private messages.
 * **Compatibility:** the SDK is in beta and any build may include breaking changes. The assembly version changes with them, and `IBroker.ApiVersion` reports the version xPilot was built with. xPilot does not refuse to load a plugin built against a different SDK version, so check `ApiVersion` at the top of `Initialize`.
 * **Lifecycle:** plugins are initialized once at startup, before a network connection can exist, and can't be reloaded while xPilot runs. Unsubscribe and release resources in `SessionEnded`.
 * **Threading:** events are raised on the UI thread, in order. Handlers must return quickly.

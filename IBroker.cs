@@ -181,21 +181,6 @@ public interface IBroker
     public void RequestAtis(string callsign);
 
     /// <summary>
-    /// Send a private message.
-    /// </summary>
-    /// <param name="to">The recipient of the private message.</param>
-    /// <param name="message">The message contents.</param>
-    /// <exception cref="NotConnectedException">Thrown when not connected to the network.</exception>
-    public void SendPrivateMessage(string to, string message);
-
-    /// <summary>
-    /// Send a textual radio message on the current transmit frequency or frequencies.
-    /// </summary>
-    /// <param name="message">The message contents.</param>
-    /// <exception cref="NotConnectedException">Thrown when not connected to the network.</exception>
-    public void SendRadioMessage(string message);
-
-    /// <summary>
     /// Post a debug message to the xPilot message area.
     /// </summary>
     /// <param name="message">The message contents.</param>
